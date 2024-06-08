@@ -37,15 +37,24 @@ router.get("/see/:id", async (req, res) => {
   try {
     const database = await conexionBD();
     const id = req.params.id;
-    let results = await database.sql`SELECT 
+    let results = await database.sql
+                                    `SELECT 
                                         buques.*, 
-                                        banderas.nombre AS bandera 
-                                     FROM 
-                                        buques 
-                                     JOIN 
-                                        banderas ON buques.bandera_id = banderas.id 
-                                     WHERE 
-                                        buques.id = ${id};`;
+                                        banderas.nombre AS bandera,
+                                        tipos.clase AS clase,
+                                        tipos.subclase AS subclase,
+                                        medios_gc.nombre AS gc 
+                                    FROM 
+                                        buques  
+                                    JOIN 
+                                        banderas ON buques.bandera_id = banderas.id
+                                    JOIN
+                                        tipos ON buques.tipo_id = tipos.id
+                                    JOIN 
+                                        medios_gc ON buques.medio_gc_id = medios_gc.id
+                                    WHERE 
+                                        buques.id = ${id};
+                                    `;
     res.render("see", { buque: results[0] });
   } catch (error) {
     console.error("Error:", error);
@@ -75,8 +84,7 @@ router.get("/edit/:id", async (req, res) => {
                                      WHERE 
                                         buques.id = ${id};
                                     `;
-
-                                        console.log(results)
+                                    console.log(results)
     res.render("edit", { buque: results[0] });
   } catch (error) {
     console.error("Error:", error);
