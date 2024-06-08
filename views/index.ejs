@@ -1,0 +1,134 @@
+<!-- src/views/index.ejs -->
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SRBI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!--Leaflet cdn-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Integro mapa Leaflet IGN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Boton para agregar nuevo registro -->
+    <!-- Contenedor principal -->
+    <div class="container-fluid">
+        <div class="row no-gutters mt-4">
+            <!-- Columna para el botón -->
+            <div class="col-auto p-2">
+                <a href="/create" class="btn btn-outline-primary">Nuevo</a>
+            </div>
+            <div class="input col-5 p-2">
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="col-auto p-2">
+                <a href="/search" class="btn btn-outline-primary">Buscar</a>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <!-- Tabla de datos -->
+            <div class="col-md-7 p-2">
+                <table class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr class="bg-primary text-black">
+                            <th scope="col">NOMBRE</th>
+                            <th scope="col">BANDERA</th>
+                            <th scope="col">MMSI</th>
+                            <th scope="col">IMO</th>
+                            <th scope="col">CALL SIGN</th>
+                            <th scope="col">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (results && results.length> 0) { %>
+                            <% results.forEach((buque)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= buque.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= buque.bandera %>
+                                    </td>
+                                    <td>
+                                        <%= buque.mmsi %>
+                                    </td>
+                                    <td>
+                                        <%= buque.imo %>
+                                    </td>
+                                    <td>
+                                        <%= buque.call_sign %>
+                                    </td>
+                                    <td>
+                                        <a href="/see/<%= buque.id %>" class="btn btn-outline-info">Ver</a>
+                                        <a href="/edit/<%= buque.id %>" class="btn btn-outline-info">Editar</a>
+                                        <a href="/delete/<%= buque.id %>" class="btn btn-outline-danger">Borrar</a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="6">No hay datos disponibles</td>
+                                        </tr>
+                                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Mapa -->
+            <div class="col-md-5 p-2">
+                <div id="mapa" style="height:500px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        //Inicializar el mapa
+        var mimapa = L.map('mapa').setView([-40, -59], 4);
+        //Agregar mapa base de IGN
+        L.tileLayer('https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png', {
+            attribution: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
+            minZoom: 3,
+            maxZoom: 18
+        }).addTo(mimapa);
+    </script>
+</body>
+</html>
