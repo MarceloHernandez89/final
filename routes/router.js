@@ -65,10 +65,10 @@ router.get("/edit/:id", async (req, res) => {
                                         tipos.subclase AS subclase,
                                         medios_gc.nombre AS gc 
                                      FROM 
-                                        buques 
+                                        buques  
                                      JOIN 
                                         banderas ON buques.bandera_id = banderas.id
-                                     JOIN 
+                                     JOIN
                                         tipos ON buques.tipo_id = tipos.id
                                      JOIN 
                                         medios_gc ON buques.medio_gc_id = medios_gc.id
