@@ -37,8 +37,7 @@ router.get("/see/:id", async (req, res) => {
   try {
     const database = await conexionBD();
     const id = req.params.id;
-    let results = await database.sql
-                                    `SELECT 
+    let results = await database.sql`SELECT 
                                         buques.*, 
                                         banderas.nombre AS bandera,
                                         tipos.clase AS clase,
@@ -66,8 +65,7 @@ router.get("/edit/:id", async (req, res) => {
   try {
     const database = await conexionBD();
     const id = req.params.id;
-    let results = await database.sql
-                                    `SELECT 
+    let results = await database.sql`SELECT 
                                         buques.*, 
                                         banderas.nombre AS bandera,
                                         tipos.clase AS clase,
@@ -84,7 +82,7 @@ router.get("/edit/:id", async (req, res) => {
                                      WHERE 
                                         buques.id = ${id};
                                     `;
-                                    console.log(results)
+    console.log(results);
     res.render("edit", { buque: results[0] });
   } catch (error) {
     console.error("Error:", error);
@@ -106,19 +104,5 @@ router.get("/delete/:id", async (req, res) => {
 
 router.post("/save", crud.save);
 router.post("/update", crud.update);
-
-// Ruta para manejar la solicitud de búsqueda
-router.get("/search", async (req, res) => {
-  try {
-    const database = await conexionBD();
-    const searchTerm = req.query.term;
-    const results =
-      await database.sql`SELECT * FROM buques WHERE nombre LIKE '%${searchTerm}%'`;
-    res.json(results);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
 
 module.exports = router;

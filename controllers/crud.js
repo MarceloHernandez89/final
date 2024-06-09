@@ -1,12 +1,23 @@
 // src/controllers/crud.js
-const conexionBD = require('../database/db');
+const conexionBD = require("../database/db");
 
 exports.save = async (req, res) => {
-    try {
-        const database = await conexionBD();
-        const { nombre, bandera, mmsi, imo, call_sign, clase, subclase, medio_gc, latitud, longitud, detalle } = req.body;
-        await database.sql
-                           `INSERT INTO buques (nombre, bandera_id, mmsi, imo, call_sign, tipo_id, medio_gc_id, latitud, longitud, detalle)
+  try {
+    const database = await conexionBD();
+    const {
+      nombre,
+      bandera,
+      mmsi,
+      imo,
+      call_sign,
+      clase,
+      subclase,
+      medio_gc,
+      latitud,
+      longitud,
+      detalle,
+    } = req.body;
+    await database.sql`INSERT INTO buques (nombre, bandera_id, mmsi, imo, call_sign, tipo_id, medio_gc_id, latitud, longitud, detalle)
                             VALUES 
                             (${nombre}, 
                             (SELECT id FROM banderas WHERE nombre = ${bandera}), 
@@ -19,19 +30,31 @@ exports.save = async (req, res) => {
                             ${longitud}, 
                             ${detalle})
                         `;
-        res.redirect('/');
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 };
 
 exports.update = async (req, res) => {
-    try {
-        const database = await conexionBD();
-        const { id, nombre, bandera, mmsi, imo, call_sign, clase, subclase, medio_gc, latitud, longitud, detalle } = req.body;
-        await database.sql
-                           `UPDATE buques
+  try {
+    const database = await conexionBD();
+    const {
+      id,
+      nombre,
+      bandera,
+      mmsi,
+      imo,
+      call_sign,
+      clase,
+      subclase,
+      medio_gc,
+      latitud,
+      longitud,
+      detalle,
+    } = req.body;
+    await database.sql`UPDATE buques
                             SET 
                                 nombre = ${nombre},
                                 bandera_id = (SELECT id FROM banderas WHERE nombre = ${bandera}),
@@ -46,11 +69,9 @@ exports.update = async (req, res) => {
                             WHERE
                                 id = ${id};
                            `;
-        res.redirect('/');
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 };
-
-
