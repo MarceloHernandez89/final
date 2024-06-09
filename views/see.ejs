@@ -25,7 +25,6 @@
         <a class="navbar-brand">Sistema de Registro de Buques de Interes</a>
       </div>
     </div>
-    </a>
   </nav>
   <% if(buque){ %>
     <!-- Contenedor principal -->
@@ -36,7 +35,7 @@
         </div>
         <div class="card-body">
           <form>
-            <input id="id" name="id" value="<%= buque.id %>" hidden>
+            <input id="id" name="id" value="<%= buque.id %>" hidden readonly>
             <!-- Sección de información estática -->
             <div class="accordion mb-3" id="accordionGeneral">
               <div class="accordion-item">
@@ -54,11 +53,11 @@
                       <div class="col">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="<%= buque.nombre %>"
-                          tabindex="1">
+                          tabindex="1" readonly>
                       </div>
                       <div class="col">
                         <label for="bandera" class="form-label">Bandera</label>
-                        <select class="form-select" id="bandera" name="bandera" tabindex="2">
+                        <select class="form-select" id="bandera" name="bandera" tabindex="2" disabled>
                           <option value="China" <%=buque.bandera=='China' ? "selected" : "" %>>China</option>
                           <option value="Corea del Sur" <%=buque.bandera=='Corea del Sur' ? "selected" : "" %>>Corea del
                             Sur</option>
@@ -76,23 +75,23 @@
                       <div class="col">
                         <label for="mmsi" class="form-label">MMSI</label>
                         <input type="text" class="form-control" id="mmsi" name="mmsi" value="<%= buque.mmsi %>"
-                          tabindex="4">
+                          tabindex="4" readonly>
                       </div>
                       <div class="col">
                         <label for="imo" class="form-label">IMO</label>
                         <input type="text" class="form-control" id="imo" name="imo" value="<%= buque.imo %>"
-                          tabindex="5">
+                          tabindex="5" readonly>
                       </div>
                       <div class="col">
                         <label for="call_sign" class="form-label">Call Sign</label>
                         <input type="text" class="form-control" id="call_sign" name="call_sign"
-                          value="<%= buque.call_sign%>" tabindex="3">
+                          value="<%= buque.call_sign%>" tabindex="3" readonly>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <div class="col">
                         <label for="clase" class="form-label">Clase</label>
-                        <select class="form-select" id="clase" name="clase" tabindex="5">
+                        <select class="form-select" id="clase" name="clase" tabindex="5" disabled>
                           <option value="" selected disabled></option>
                           <option value="Pesquero" <%= buque.clase === 'Pesquero' ? 'selected' : '' %>>Pesquero</option>
                           <!-- Agrega más opciones según sea necesario -->
@@ -100,7 +99,7 @@
                       </div>
                       <div class="col">
                         <label for="subclase" class="form-label">Subclase</label>
-                        <select class="form-select" id="subclase" name="subclase" tabindex="5">
+                        <select class="form-select" id="subclase" name="subclase" tabindex="5" disabled>
                           <option value="" selected disabled></option>
                           <option value="Arrastrero" <%= buque.subclase === 'Arrastrero' ? 'selected' : '' %>>Arrastrero</option>
                           <option value="Palangrero" <%= buque.subclase === 'Palangrero' ? 'selected' : '' %>>Palangrero</option>
@@ -131,7 +130,7 @@
                     <div class="row mb-3">
                       <div class="col">
                         <label for="medio_gc" class="form-label">Medio PNA</label>
-                        <select class="form-select" id="medio_gc" name="medio_gc" tabindex="8">
+                        <select class="form-select" id="medio_gc" name="medio_gc" tabindex="8" disabled>
                           <option value="GC-28 DERBES" <%=buque.medio_gc=='GC-28 DERBES' ? 'selected' : '' %>>GC-28
                             DERBES
                           </option>
@@ -142,19 +141,19 @@
                       <div class="col">
                         <label for="latitud" class="form-label">Latitud</label>
                         <input type="text" class="form-control" id="latitud" name="latitud" value="<%= buque.latitud %>"
-                          tabindex="9">
+                          tabindex="9" readonly>
                       </div>
                       <div class="col">
                         <label for="longitud" class="form-label">Longitud</label>
                         <input type="text" class="form-control" id="longitud" name="longitud"
-                          value="<%= buque.longitud %>" tabindex="10">
+                          value="<%= buque.longitud %>" tabindex="10" readonly>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <div class="col">
                         <label for="detalle" class="form-label">Detalle</label>
                         <textarea class="form-control" id="detalle" name="detalle" rows="4"
-                          tabindex="11"><%= buque.detalle %></textarea>
+                          tabindex="11" readonly><%= buque.detalle %></textarea>
                       </div>
                     </div>
                   </div>

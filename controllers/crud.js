@@ -1,5 +1,15 @@
 const conexionBD = require("../database/db");
-//Manejo la operación crud para guardar los datos.
+
+// Validación de datos
+function validarDatos(datos) {
+  const { nombre } = datos;
+  if (!nombre || nombre.trim() === "") {
+    return "El campo 'nombre' es obligatorio";
+  }
+  return null;
+}
+
+// Manejo de la operación CRUD para guardar los datos
 exports.save = async (req, res) => {
   try {
     const database = await conexionBD();
@@ -16,6 +26,13 @@ exports.save = async (req, res) => {
       longitud,
       detalle,
     } = req.body;
+
+    // Validar datos
+    const error = validarDatos(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
     await database.sql`INSERT INTO buques (nombre, bandera_id, mmsi, imo, call_sign, tipo_id, medio_gc_id, latitud, longitud, detalle)
                             VALUES 
                             (${nombre}, 
@@ -32,10 +49,10 @@ exports.save = async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error en el servidor" });
-  } 
+  }
 };
 
-//Manejo la operación crud para actualizar los datos.
+// Manejo de la operación CRUD para actualizar los datos
 exports.update = async (req, res) => {
   try {
     const database = await conexionBD();
@@ -53,6 +70,13 @@ exports.update = async (req, res) => {
       longitud,
       detalle,
     } = req.body;
+
+    // Validar datos
+    const error = validarDatos(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
     await database.sql`UPDATE buques
                             SET 
                                 nombre = ${nombre},
@@ -71,5 +95,5 @@ exports.update = async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error en el servidor" });
-  } 
+  }
 };
