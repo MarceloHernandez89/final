@@ -1,6 +1,5 @@
-// src/controllers/crud.js
 const conexionBD = require("../database/db");
-
+//Manejo la operación crud para guardar los datos.
 exports.save = async (req, res) => {
   try {
     const database = await conexionBD();
@@ -28,15 +27,15 @@ exports.save = async (req, res) => {
                             (SELECT id FROM medios_gc WHERE nombre = ${medio_gc}), 
                             ${latitud}, 
                             ${longitud}, 
-                            ${detalle})
-                        `;
+                            ${detalle})`;
     res.redirect("/");
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error en el servidor" });
-  }
+  } 
 };
 
+//Manejo la operación crud para actualizar los datos.
 exports.update = async (req, res) => {
   try {
     const database = await conexionBD();
@@ -67,11 +66,10 @@ exports.update = async (req, res) => {
                                 longitud = ${longitud},
                                 detalle = ${detalle}
                             WHERE
-                                id = ${id};
-                           `;
+                                id = ${id};`;
     res.redirect("/");
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error en el servidor" });
-  }
+  } 
 };

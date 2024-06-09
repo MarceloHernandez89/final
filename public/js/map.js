@@ -1,3 +1,4 @@
+//Instancio el mapa leaflet implementado por Instituto Geográfico Nacional.
 var mimapa = L.map("mapa").setView([-40, -59], 4);
 L.tileLayer(
   "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png",
@@ -9,7 +10,7 @@ L.tileLayer(
   }
 ).addTo(mimapa);
 
-// Realiza una solicitud AJAX para obtener los datos de los buques
+// Realizo una solicitud AJAX para obtener los datos de los buques e insertar los popup al mapa.
 fetch('/buques')
   .then(response => response.json())
   .then(data => {

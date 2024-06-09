@@ -2,133 +2,139 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SRBI</title>
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" />
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <!-- Estilos font-awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Mapa Leaflet Instituto geográfico nacional -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SRBI</title>
+  <!-- Estilos de tabla -->
+  <link rel="stylesheet" href="/css/index.css">
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <!-- Estilos font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Mapa Leaflet Instituto geográfico nacional -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-dark justify-content-between mx-auto">
-        <div class="row no-gutters px-3 mt-3 mb-3">
-            <div class="col-auto">
-                <a class="navbar-brand mx-auto p-auto"><i class="fa fa-ship" aria-hidden="true"></i></a>
-            </div>
-            <div class="col-auto p-8">
-                <a class="navbar-brand">Sistema de Registro de Buques de Interes</a>
-            </div>
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark justify-content-between mx-auto">
+    <div class="row no-gutters px-3 mt-3 mb-3">
+      <div class="col-auto">
+        <a class="navbar-brand mx-auto p-auto"><i class="fa fa-ship" aria-hidden="true"></i></a>
+      </div>
+      <div class="col-auto p-8">
+        <a class="navbar-brand">Sistema de Registro de Buques de Interes</a>
+      </div>
+    </div>
+    </a>
+  </nav>
+  </div>
+  <!-- Contenedor principal -->
+  <div class="container-fluid">
+    <!-- Contenedor boton agregar y descarga-->
+    <div class="row no-gutters mx-0 mt-3">
+      <!-- Columna para el botón -->
+      <div class="col-auto p-0">
+        <a href="/create" class="btn btn-primary" title="Nuevo registro"><i class="fa fa-plus fa-1x"
+            aria-hidden="true"></i>
         </a>
-    </nav>
+      </div>
+      <!-- Columna para el texto -->
+      <div class="col-6">
+        <p class="fs-5 mt-2 text-body-secondary">Nuevo registro</p>
+      </div>
+      <!-- Botón para descargar CSV -->
+      <div class="col-auto ms-2">
+        <button id="download-csv" class="btn btn-secondary" title="Descargar CSV"><i class="fa fa-download"
+            aria-hidden="true"></i></button>
+      </div>
     </div>
-    <!-- Contenedor principal -->
-    <div class="container-fluid">
-        <!-- Contenedor boton agregar y descarga-->
-        <div class="row no-gutters mx-0 mt-3">
-            <!-- Columna para el botón -->
-            <div class="col-auto p-0">
-                <a href="/create" class="btn btn-primary" title="Nuevo registro"><i class="fa fa-plus fa-1x"
-                        aria-hidden="true"></i>
-                </a>
-            </div>
-            <!-- Columna para el texto -->
-            <div class="col-6">
-                <p class="fs-5 mt-2 text-body-secondary">Nuevo registro</p>
-            </div>
-            <!-- Botón para descargar CSV -->
-            <div class="col-auto ms-2">
-                <button id="download-csv" class="btn btn-secondary" title="Descargar CSV"><i class="fa fa-download" aria-hidden="true"></i></button>
-            </div>
-        </div>
-        <div class="row no-gutters">
-            <!-- Tabla de datos -->
-            <div class="col-md-7 p-2 mx-0">
-                <style>
-                    .hidden-column {
-                      visibility: hidden;
-                      display: none; /* Keep both for different browsers */
-                    }
-                  </style>
-                  
-                  <table id="tabla-buques" class="table table-bordered table-striped text-center">
-                    <thead>
-                      <tr class="bg-primary text-black">
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Bandera</th>
-                        <th scope="col">MMSI</th>
-                        <th scope="col">IMO</th>
-                        <th scope="col">Call Sign</th>
-                        <th class="hidden-column" scope="col">Lat.</th>
-                        <th class="hidden-column" scope="col">Long.</th>
-                        <th scope="col">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% if (results && results.length> 0) { %> <% results.forEach((buque)=> { %>
-                        <tr>
-                          <td><%= buque.nombre %></td>
-                          <td><%= buque.bandera %></td>
-                          <td><%= buque.mmsi %></td>
-                          <td><%= buque.imo %></td>
-                          <td><%= buque.call_sign %></td>
-                          <td class="hidden-column"><%= buque.latitud %></td>
-                          <td class="hidden-column"><%= buque.longitud %></td>
-                          <td>
-                            <a class="btn btn-success" href="/see/<%= buque.id %>" title="Ver"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a class="btn btn-warning" href="/edit/<%= buque.id %>" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a class="btn btn-danger" href="/delete/<%= buque.id %>" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                          </td>
-                        </tr>
-                      <% }); %> <% } else { %>
-                        <tr>
-                          <td colspan="8">No hay datos disponibles</td>
-                        </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
-                  
-            </div>
-            <!-- Columna contenedor mapa -->
-            <div class="col-md-5 p-2">
-                <!-- Contenedor mapa -->
-                <div id="mapa" style="height: 500px; width: 100%"></div>
-            </div>
-        </div>
+    <div class="row no-gutters">
+      <!-- Tabla de datos -->
+      <div class="col-md-7 p-2 mx-0">
+        <table id="tabla-buques" class="table table-bordered table-striped text-center">
+          <thead>
+            <tr class="bg-primary text-black">
+              <th scope="col">Nombre</th>
+              <th scope="col">Bandera</th>
+              <th scope="col">MMSI</th>
+              <th scope="col">IMO</th>
+              <th scope="col">Call Sign</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (results && results.length> 0) { %> <% results.forEach((buque)=> { %>
+                <tr>
+                  <td>
+                    <%= buque.nombre %>
+                  </td>
+                  <td>
+                    <%= buque.bandera %>
+                  </td>
+                  <td>
+                    <%= buque.mmsi %>
+                  </td>
+                  <td>
+                    <%= buque.imo %>
+                  </td>
+                  <td>
+                    <%= buque.call_sign %>
+                  </td>
+                  <td>
+                    <a class="btn btn-success" href="/see/<%= buque.id %>" title="Ver"><i class="fa fa-eye"
+                        aria-hidden="true"></i></a>
+                    <a class="btn btn-warning" href="/edit/<%= buque.id %>" title="Editar"><i class="fa fa-pencil"
+                        aria-hidden="true"></i></a>
+                    <a class="btn btn-danger" href="/delete/<%= buque.id %>" title="Eliminar"><i class="fa fa-trash"
+                        aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+                <% }); %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="8">No hay datos disponibles</td>
+                    </tr>
+                    <% } %>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- Columna contenedor mapa -->
+      <div class="col-md-5 p-2">
+        <!-- Contenedor mapa -->
+        <div id="mapa" style="height: 500px; width: 100%"></div>
+      </div>
     </div>
-    <!-- Scripts -->
-    <!-- Integro jQuery para DataTables -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Integro DataTables JS -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <!-- Inicializo DataTables -->
-    <script src="/js/data_tables.js"></script>
-    <!-- Integro Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <!-- Integro font-awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Instancio el mapa Leaflet IGN -->
-    <script src="/js/map.js"></script>
+  </div>
+  <!-- Scripts -->
+  <!-- Integro jQuery para DataTables -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Integro DataTables JS -->
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <!-- Inicializo DataTables -->
+  <script src="/js/data_tables.js"></script>
+  <!-- Integro Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <!-- Integro font-awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+    integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Instancio el mapa Leaflet IGN -->
+  <script src="/js/map.js"></script>
 </body>
 
 </html>
