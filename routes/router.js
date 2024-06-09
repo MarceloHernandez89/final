@@ -16,7 +16,9 @@ router.get("/", async (req, res) => {
                                             banderas.nombre AS bandera, 
                                             buques.mmsi, 
                                             buques.imo, 
-                                            buques.call_sign 
+                                            buques.call_sign, 
+                                            buques.latitud,
+                                            buques.longitud
                                         FROM 
                                             buques
                                         JOIN 
@@ -54,6 +56,7 @@ router.get("/see/:id", async (req, res) => {
                                     WHERE 
                                         buques.id = ${id};
                                     `;
+                                      console.log(results);
     res.render("see", { buque: results[0] });
   } catch (error) {
     console.error("Error:", error);
@@ -104,5 +107,32 @@ router.get("/delete/:id", async (req, res) => {
 
 router.post("/save", crud.save);
 router.post("/update", crud.update);
+
+
+router.get("/buques", async (req, res) => {
+  try {
+    const database = await conexionBD();
+    let results = await database.sql`SELECT 
+                                            buques.id, 
+                                            buques.nombre, 
+                                            banderas.nombre AS bandera, 
+                                            buques.mmsi, 
+                                            buques.imo, 
+                                            buques.call_sign, 
+                                            buques.latitud,
+                                            buques.longitud
+                                        FROM 
+                                            buques
+                                        JOIN 
+                                            banderas ON buques.bandera_id = banderas.id;
+                                        `;
+    res.json({ buques: results });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+});
+
+
 
 module.exports = router;
