@@ -89,7 +89,8 @@ router.get("/edit/:id", async (req, res) => {
                                         medios_gc ON buques.medio_gc_id = medios_gc.id
                                      WHERE 
                                         buques.id = ${id};`;
-    res.render("edit", { buque: results[0] });
+                                        console.log(results)
+                                        res.render("edit", { buque: results[0] });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error en el servidor" });

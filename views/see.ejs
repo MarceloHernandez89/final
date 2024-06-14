@@ -93,7 +93,7 @@
                         <label for="clase" class="form-label">Clase</label>
                         <select class="form-select" id="clase" name="clase" tabindex="5" disabled>
                           <option value="" selected disabled></option>
-                          <option value="Pesquero" <%= buque.clase === 'Pesquero' ? 'selected' : '' %>>Pesquero</option>
+                          <option value="Pesquero" <%=buque.clase==='Pesquero' ? 'selected' : '' %>>Pesquero</option>
                           <!-- Agrega más opciones según sea necesario -->
                         </select>
                       </div>
@@ -101,15 +101,19 @@
                         <label for="subclase" class="form-label">Subclase</label>
                         <select class="form-select" id="subclase" name="subclase" tabindex="5" disabled>
                           <option value="" selected disabled></option>
-                          <option value="Arrastrero" <%= buque.subclase === 'Arrastrero' ? 'selected' : '' %>>Arrastrero</option>
-                          <option value="Palangrero" <%= buque.subclase === 'Palangrero' ? 'selected' : '' %>>Palangrero</option>
-                          <option value="Potero" <%= buque.subclase === 'Potero' ? 'selected' : '' %>>Potero</option>
-                          <option value="Polivalente" <%= buque.subclase === 'Polivalente' ? 'selected' : '' %>>Polivalente</option>
-                          <option value="Pesquero no identificado" <%= buque.subclase === 'Pesquero no identificado' ? 'selected' : '' %>>Pesquero no identificado</option>
+                          <option value="Arrastrero" <%=buque.subclase==='Arrastrero' ? 'selected' : '' %>>Arrastrero
+                          </option>
+                          <option value="Palangrero" <%=buque.subclase==='Palangrero' ? 'selected' : '' %>>Palangrero
+                          </option>
+                          <option value="Potero" <%=buque.subclase==='Potero' ? 'selected' : '' %>>Potero</option>
+                          <option value="Polivalente" <%=buque.subclase==='Polivalente' ? 'selected' : '' %>>Polivalente
+                          </option>
+                          <option value="Pesquero no identificado" <%=buque.subclase==='Pesquero no identificado'
+                            ? 'selected' : '' %>>Pesquero no identificado</option>
                           <!-- Agrega más opciones según sea necesario -->
                         </select>
                       </div>
-                    </div>                    
+                    </div>
                   </div>
                 </div>
               </div>
@@ -148,12 +152,16 @@
                         <input type="text" class="form-control" id="longitud" name="longitud"
                           value="<%= buque.longitud %>" tabindex="10" readonly>
                       </div>
+                      <div class="col-auto d-flex align-items-center mt-4">
+                        <a><i class="fa fa-info-circle" aria-hidden="true"
+                            title="Formato de coordenadas DD&#13;&#10;Latitud: -42.23&#13;&#10;Longitud: -60.10"></i></a>
+                      </div>
                     </div>
                     <div class="row mb-3">
                       <div class="col">
                         <label for="detalle" class="form-label">Detalle</label>
-                        <textarea class="form-control" id="detalle" name="detalle" rows="4"
-                          tabindex="11" readonly><%= buque.detalle %></textarea>
+                        <textarea class="form-control" id="detalle" name="detalle" rows="4" tabindex="11"
+                          readonly><%= buque.detalle %></textarea>
                       </div>
                     </div>
                   </div>
@@ -179,5 +187,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
         </script>
 </body>
+<!-- Footer -->
+<footer class="footer bg-dark text-center text-white mt-5">
+  <div class="container p-4">
+    <section class="mb-4">
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-linkedin-in"></i></a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-github"></i></a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-twitter"></i></a>
+    </section>
+    <div class="text-center text-light">
+      <p>&copy; 2024 SRBI. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
 
 </html>
